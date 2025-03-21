@@ -1,0 +1,33 @@
+name: CI/CD for Django based App
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  
+  job1:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Git Checkout
+      uses: actions/checkout@v3
+    
+    - name: Python Environment Setup
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+
+    - name: Setup venv for Python
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+
+  job2:
+    runs-on: windows-latest
+
+    steps:
+      - run: echo "second job complete"
+
