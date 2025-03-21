@@ -24,6 +24,13 @@ jobs:
       run: |
         python -m venv venv
         source venv/bin/activate
+    - name: Install Dependencies
+      run: |
+          python -m pip install --upgrade pip
+          pip install django
+    - name: Run Tests
+      run: |
+        python manage.py test
 
   job2:
     runs-on: windows-latest
