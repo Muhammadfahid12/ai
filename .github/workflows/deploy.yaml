@@ -10,10 +10,8 @@ on:
 
 
 jobs:
-  
   build:
     runs-on: ubuntu-latest
-
     steps:
     - name: Git Checkout
       uses: actions/checkout@v3
@@ -40,7 +38,8 @@ jobs:
         python manage.py test
 
     - name: Linting code with flake8
-      uses: y-actions/flake8@v2
+      uses: py-actions/flake8@v2
+
 
     - name: Security check report artifacts
       run: |
