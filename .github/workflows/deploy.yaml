@@ -38,7 +38,7 @@ jobs:
     #     python manage.py test
 
     - name: Linting code with flake8
-      uses: py-actions/flake8@v2
+      uses: py-actions/flake8
 
 
     - name: Security check report artifacts
