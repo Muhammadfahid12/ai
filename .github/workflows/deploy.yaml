@@ -4,10 +4,14 @@ on:
   push:
     branches:
       - master
+  pull_request:    ## need to review
+    branches:
+      - master
+
 
 jobs:
   
-  job1:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,13 +28,45 @@ jobs:
       run: |
         python -m venv venv
         source venv/bin/activate
+
     - name: Install Dependencies
       run: |
           python -m pip install --upgrade pip
-          pip install django
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+          
     - name: Run Tests
       run: |
         python manage.py test
+
+    - name: Linting code with flake8
+      uses: y-actions/flake8@v2
+
+    - name: Security check report artifacts
+      run: |
+        pip install bandit
+        bandit -r .
+
+
+    - name: Dependency Security scan with safety
+      run: |
+       pip install safety
+       safety check --full-report
+
+    ## caching dependencies
+
+    - name: Cache Pip Dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ $hashFiles('**/requirements.txt') }}
+        restore-keys: |
+         ${{ runner.os }}-pip-
+
+    # - name: Run Tests and generate coverage
+    #   run: |
+    #     pip install coverage
+    #     coverage run -m pytest
 
   job2:
     runs-on: windows-latest
