@@ -20,6 +20,7 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: '3.10'
+        cache: pip
 
 
     # - name: Setup venv for Python
@@ -32,36 +33,9 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-          
-    # - name: Run Tests
-    # #   run: |
-    # #     python manage.py test
+   
 
-    # - name: Linting code with flake8
-    #   uses: py-actions/flake8@latest
-
-    - name: Lint with flake8
-      id: flake8
-      continue-on-error: true
-      run: |
-        flake8 . --count --max-complexity=15 --max-line-length=127 --statistics
-
-    # - name: Check if 'Lint with flake8' step failed
-    #   if: steps.flake8.outcome != 'success'
-    #   run: |
-    #    echo steps.flake8.outcome
-    #    exit 1
-      
-  #   # - name: Security check report artifacts
-  #   #   run: |
-  #   #     pip install bandit
-  #   #     bandit -r .
-
-
-  #   # - name: Dependency Security scan with safety
-  #   #   run: |
-  #   #    pip install safety
-  #   #    safety check --full-report
+    
 
   #   ## caching dependencies
 
@@ -78,8 +52,8 @@ jobs:
   #   #     pip install coverage
   #   #     coverage run -m pytest
 
-  job2:
-    runs-on: windows-latest
+  security:
+    runs-on: ubuntu-latest
     needs: build
 
     steps:
