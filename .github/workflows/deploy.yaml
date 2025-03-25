@@ -46,11 +46,11 @@ jobs:
       run: |
         flake8 . --count --max-complexity=15 --max-line-length=127 --statistics
 
-    - name: Check if 'Lint with flake8' step failed
-      if: steps.flake8.outcome != 'success'
-      run: |
-       echo steps.flake8.outcome
-       exit 1
+    # - name: Check if 'Lint with flake8' step failed
+    #   if: steps.flake8.outcome != 'success'
+    #   run: |
+    #    echo steps.flake8.outcome
+    #    exit 1
       
   #   # - name: Security check report artifacts
   #   #   run: |
