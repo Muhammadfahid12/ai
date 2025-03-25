@@ -58,6 +58,9 @@ jobs:
     needs: build
 
     steps:
+    - name: Git Checkout
+      uses: actions/checkout
+      
     - name: Installing Trivy on Ubuntu Runner 
       run: |
         sudo apt-get install wget apt-transport-https gnupg lsb-release
@@ -74,4 +77,3 @@ jobs:
 
     - name: Git Leaks Code Scan
       run: gitleaks detect source . -r gitleaks-report.json -f json
-       
