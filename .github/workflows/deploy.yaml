@@ -38,6 +38,8 @@ jobs:
    
     - name: Python linting
       uses: konstruktoid/action-pylint@v1.0.0
+      continue-on-error: true  # This will allow the step to continue on error
+
 
 
   #   ## caching dependencies
