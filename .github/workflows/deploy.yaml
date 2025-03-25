@@ -49,7 +49,7 @@ jobs:
     - name: Check if 'Lint with flake8' step failed
       if: steps.flake8.outcome != 'success'
       run: |
-       echo "flake8 fails"
+       echo steps.flake8.outcome
        exit 1
       
   #   # - name: Security check report artifacts
