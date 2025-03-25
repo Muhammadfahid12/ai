@@ -37,8 +37,8 @@ jobs:
     # #   run: |
     # #     python manage.py test
 
-    # - name: Linting code with flake8
-      # uses: py-actions/flake8@latest
+    - name: Linting code with flake8
+      uses: py-actions/flake8@latest
 
   #   - name: Lint with flake8
   #     id: flake8
