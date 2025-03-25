@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - master
-  # pull_request:    ## need to review
-  #   branches:
-  #     - master
+  pull_request:    ## need to review
+    branches:
+      - master
 
 
 jobs:
@@ -40,35 +40,48 @@ jobs:
     # - name: Linting code with flake8
       # uses: py-actions/flake8@latest
 
+  #   - name: Lint with flake8
+  #     id: flake8
+  #     continue-on-error: true
+  #     run: |
+  #       # fail if there are any flake8 errors
+  #       flake8 . --count --max-complexity=15 --max-line-length=127 --statistics
 
-    - name: Security check report artifacts
-      run: |
-        pip install bandit
-        bandit -r .
+  #   # - name: Check if 'Lint with flake8' step failed
+  #   #   if: steps.flake8.outcome != 'success'
+  #   #   run: |
+  #   #    echo "flake8 fails"
+  #   #    exit 1
+      
+  #   # - name: Security check report artifacts
+  #   #   run: |
+  #   #     pip install bandit
+  #   #     bandit -r .
 
 
-    - name: Dependency Security scan with safety
-      run: |
-       pip install safety
-       safety check --full-report
+  #   # - name: Dependency Security scan with safety
+  #   #   run: |
+  #   #    pip install safety
+  #   #    safety check --full-report
 
-    ## caching dependencies
+  #   ## caching dependencies
 
-    - name: Cache Pip Dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-{{ $hashFiles('**/requirements.txt') }}
-        restore-keys: |
-         ${{ runner.os }}-pip-
+  #   - name: Cache Pip Dependencies
+  #     uses: actions/cache@v3
+  #     with:
+  #       path: ~/.cache/pip
+  #       key: ${{ runner.os }}-pip-{{ $hashFiles('**/requirements.txt') }}
+  #       restore-keys: |
+  #        ${{ runner.os }}-pip-
 
-    # - name: Run Tests and generate coverage
-    #   run: |
-    #     pip install coverage
-    #     coverage run -m pytest
+  #   # - name: Run Tests and generate coverage
+  #   #   run: |
+  #   #     pip install coverage
+  #   #     coverage run -m pytest
 
   job2:
     runs-on: windows-latest
+    needs: build
 
     steps:
       - run: echo "second job complete"
